@@ -6,61 +6,110 @@ const ctx = canvas.getContext("2d");
 
 characterCtx.fillStyle = "#ffd0a6";
 characterCtx.strokeStyle = "#333";
+function drawCharacter(){
 characterCtx.LineWidth = 5;
 characterCtx.beginPath();
-characterCtx.ellipse(300,180,100,120,0,0,Math.PI *2);
+characterCtx.ellipse(300,190,88,105,0,0,Math.PI *2);
 characterCtx.fill();
 characterCtx.stroke();
 
-characterCtx.fillStyle = "#7ec8ff";
+characterCtx.fillStyle = "#39b5e8";
 characterCtx.beginPath();
-characterCtx.roundRect(210,290,180,180,180,35);
+characterCtx.moveTo(225,295);
+characterCtx.quadraticCurveTo(300,275,375,295);
+characterCtx.lineTo(385,430);
+characterCtx.quadraticCurveTo(300,465,215,430);
+characterCtx.closePath();
 characterCtx.fill();
 characterCtx.stroke();
 
 characterCtx.beginPath();
-characterCtx.moveTo(215,315);
-characterCtx.lineTo(130, 420);
-characterCtx.lineTo(155,440);
+characterCtx.moveTo(225,315);
+characterCtx.quadraticCurveTo(195,345,165,385);
+characterCtx.lineTo(145, 415);
+characterCtx.lineTo(160,425);
+characterCtx.quadraticCurveTo(195,385,235,345);
 characterCtx.closePath();
 
 characterCtx.fill();
 characterCtx.stroke();
 
 characterCtx.beginPath();
-characterCtx.moveTo(385, 315);
-characterCtx.lineTo(470, 420);
-characterCtx.lineTo(445,440);
-characterCtx.lineTo(360,350);
+characterCtx.moveTo(375, 315);
+characterCtx.quadraticCurveTo(405,345,435,385);
+characterCtx.lineTo(455, 415);
+characterCtx.lineTo(440,425);
+characterCtx.quadraticCurveTo(405,385,365,345);
 characterCtx.closePath();
 
 characterCtx.fill();
 characterCtx.stroke();
 
 characterCtx.beginPath();
-characterCtx.roundRect(230,460,55,105,20);
+characterCtx.moveTo(240,455);
+characterCtx.lineTo(230,550);
+characterCtx.quadraticCurveTo(230,570,248,570);
+characterCtx.lineTo(267,570);
+characterCtx.quadraticCurveTo(280,570,280,550);
+characterCtx.lineTo(280,475);
+characterCtx.quadraticCurveTo(280,455,265,455);
+characterCtx.closePath();
+
 characterCtx.fill();
 characterCtx.stroke();
 
 characterCtx.beginPath();
-characterCtx.roundRect(315,460,55,105,20);
+characterCtx.moveTo(335,455);
+characterCtx.quadraticCurveTo(320,455,320,470);
+characterCtx.lineTo(320,550);
+characterCtx.quadraticCurveTo(320,565,335,565);
+characterCtx.lineTo(352,570);
+characterCtx.quadraticCurveTo(370,565,370,550);
+characterCtx.lineTo(370,470);
+characterCtx.quadraticCurveTo(370,455,355,455);
+characterCtx.closePath();
 characterCtx.fill();
 characterCtx.stroke();
 
 characterCtx.fillStyle = "#333";
 
 characterCtx.beginPath();
-characterCtx.arc(335,170,10,0,Math.PI*2);
+characterCtx.ellipse(265,175,6,8,0,0,Math.PI*2);
 characterCtx.fill();
 
 characterCtx.beginPath();
-characterCtx.arc(265,170,10,0,Math.PI*2);
+characterCtx.ellipse(335,175,6,8,0,0,Math.PI*2);
 characterCtx.fill();
 
 characterCtx.beginPath();
-characterCtx.arc(300,205,35,0,Math.PI);
+characterCtx.moveTo(275,220);
+characterCtx.quadraticCurveTo(300,238,325,220);
 characterCtx.stroke();
 
+characterCtx.fillStyle = "#333";
+characterCtx.beginPath();
+characterCtx.arc(300,115,88,0,Math.PI);
+characterCtx.fill();
+characterCtx.stroke();
+
+characterCtx.beginPath();
+characterCtx.moveTo(225,145);
+characterCtx.quadraticCurveTo(230,105,300,102);
+characterCtx.quadraticCurveTo(370,105,375,145);
+characterCtx.lineTo(360,135);
+characterCtx.lineTo(345,150);
+characterCtx.lineTo(330,135);
+characterCtx.lineTo(315,150);
+characterCtx.lineTo(300,135);
+characterCtx.lineTo(285,150);
+characterCtx.lineTo(270,135);
+characterCtx.lineTo(255,150);
+characterCtx.lineTo(240,135)
+characterCtx.closePath();
+characterCtx.fill();
+characterCtx.stroke();
+}
+drawCharacter();
 let drawing = false;
 canvas.addEventListener("mousedown",function(event){
     drawing = true;
