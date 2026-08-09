@@ -109,4 +109,48 @@ canvas.addEventListener("mousemove",function(event) {
     });
     let undostack = [];
     const undoBtn = document.getElementById("undoBtn");
-    const clearBtn
+    const clearBtn = document.getElementById("clearBtn");
+    const redoBtn = document.getElementById("redoBtn");
+    canvas.addEventListener("mousedown",function(){
+        undostack.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+        redostack = [];
+    });
+    undoBtn.addEventListener("click",function(){
+        if(undostack.length>0){
+            redostack.push(
+                ctx.getImageData(0,0,canvas.width,canvas.height)
+            );
+            const previousState = undostack.pop();
+            ctx.putImageData(previousState,0,0);
+        }
+    });
+    clearBtn.addEventListener("click",function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        undostack = [];
+        redostack = [];
+    });
+    redoBtn.addEventListener("click",function(){
+        if(redostack.length>0){
+            undostack.push(
+                ctx.getImageData(0,0,canvas.width,canvas.height)
+            );
+            const nextState = redostack.pop();
+            ctx.putImageData(nextState,0,0);
+        }
+    });
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.addEventListener("click",function(){
+        const finalCanvas = document.createElement("canvas");
+        finalCanvas.width = characterCanvas.width;
+        finalCanvas.height = characterCanvas.height;
+
+        const finalCtx = finalCtx = finalCanvas.getContext("2d");
+        finalCtx.drawImage(characterCanvas, 0,0);
+        finalCtx.drawImage(canvas,0,0);
+        const image = finalCanvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.download = "my-cartoon-png";
+        link.href = image;
+        link.click();
+    });
+    
