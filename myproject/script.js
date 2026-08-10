@@ -3,6 +3,8 @@ const characterCanvas = document.getElementById("characterCanvas");
 const characterCtx = characterCanvas.getContext("2d");
 const canvas = document.getElementById("artCanvas");
 const ctx = canvas.getContext("2d");
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
 
 characterCtx.fillStyle = "#ffd0a6";
 characterCtx.strokeStyle = "#333";
@@ -110,29 +112,35 @@ characterCtx.stroke();
 }
 drawCharacter();
 let drawing = false;
-canvas.addEventListener("mousedown",function(event){
-    drawing = true;
-    ctx.beginPath();
+let undostack = [];
+let redostack = [];
+    canvas.addEventListener("pointerdown",function(event){
+        drawing = true;
+        undostack.push(
+            ctx.getImageData(0,0,canvas.width,canvas.height)
+        );
+        redostack = [];
 
-    ctx.moveTo(
-        event.offsetX,
-        event.offsetY
-    );
-});
-canvas.addEventListener("mousemove",function(event) {
-    if(!drawing){
-        return;
-    }
-    ctx.lineTo(
-        event.offsetX,
-        event.offsetY
-    );
-    ctx.stroke();
-});
-    canvas.addEventListener("mouseup",function(){
+        ctx.beginPath();
+        ctx.moveTo(
+            event.offsetX,
+            event.offsetY
+        );
+    });
+    canvas.addEventListener("pointermove",function(event){
+        if(!drawing){
+            return;
+        }
+        ctx.lineTo(
+            event.offsetX,
+            event.offsetY
+        );
+        ctx.stroke();
+    });
+    canvas.addEventListener("pointerup",function(){
         drawing = false;
     });
-    canvas.addEventListener("mouseleave",function(){
+    canvas.addEventListener("pointerleave",function(){
         drawing = false;
     });
     const colorPicker = document.getElementById("colorPicker");
@@ -142,9 +150,11 @@ canvas.addEventListener("mousemove",function(event) {
     const pencilBtn = document.getElementById("pencilBtn");
     const brushBtn = document.getElementById("brushBtn");
     let currentTool = "pencil";
+    pencilBtn.classList.add("active");
     pencilBtn.addEventListener("click",function(){
         currentTool = "pencil";
         ctx.globalCompositeOperation = "source-over";
+        ctx.lineWidth = 4;
 
         pencilBtn.classList.add("active");
         brushBtn.classList.remove("active");
@@ -153,7 +163,7 @@ canvas.addEventListener("mousemove",function(event) {
     brushBtn.addEventListener("click",function(){
         currentTool = "brush";
         ctx.globalCompositeOperation = "source-over";
-
+        ctx.lineWidth = Number(brushSize.value);
         brushBtn.classList.add("active");
         pencilBtn.classList.remove("active");
         eraserBtn.classList.remove("active");
@@ -162,7 +172,7 @@ canvas.addEventListener("mousemove",function(event) {
     eraserBtn.addEventListener("click",function(){
         currentTool = "eraser";
         ctx.globalCompositeOperation = "destination-out";
-
+        ctx.lineWidth = 25;
         eraserBtn.classList.add("active");
         pencilBtn.classList.remove("active");
         brushBtn.classList.remove("active");
@@ -171,15 +181,9 @@ canvas.addEventListener("mousemove",function(event) {
     brushSize.addEventListener("input",function(){
         ctx.lineWidth = Number(brushSize.value);
     });
-    let undostack = [];
-    let redostack = [];
     const undoBtn = document.getElementById("undoBtn");
     const clearBtn = document.getElementById("clearBtn");
     const redoBtn = document.getElementById("redoBtn");
-    canvas.addEventListener("mousedown",function(){
-        undostack.push(ctx.getImageData(0,0,canvas.width,canvas.height));
-        redostack = [];
-    });
     undoBtn.addEventListener("click",function(){
         if(undostack.length>0){
             redostack.push(

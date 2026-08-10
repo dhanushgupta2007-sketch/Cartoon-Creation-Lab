@@ -4,7 +4,7 @@ body {
 
     font-family: Arial, sans-serif;
 
-    background: #f5f6f8;
+    background:linear-gradient(135deg,#e8f7ff,#fff4f8,#fff9e6);
     color: #222;
 }
 .app{
@@ -24,7 +24,10 @@ h1{
     margin: 0;
     font-size: 32px;
     font-weight: 700;
-    color: #222;
+    background: linear-gradient(90deg,#6366f1,#ec4899,#f59e0b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 header p{
@@ -40,9 +43,9 @@ header p{
 }
 .toolbar{
     width: 140px;
-    padding: 14px;
-    background:#fff7ed;
-    border: 2px solid #ffdd16;
+    padding: 12px;
+    background: linear-gradient(180deg,#ffffff,#f1f7ff);
+    border: 1px solid #d6e4f0;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -51,43 +54,45 @@ header p{
     rgba(0,0,0,0.08);
 }
 .toolbar button{
-    padding: 12px;
-    border: none;
+    padding: 11px;
+    border: 2px solid #e2e6ff;
     border-radius:10px;
-    background: #e8f4ff;
-    color: #333;
+    background: #ffffff;
+    color: #3d4160;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.15s;
 }
 .toolbar button:hover{
-    background: #cdeaff;
-    transform: scale(1.03);
+    background: #f0f4ff;
+    border-color: #9eb7ff;
+    transform: translateY(-2px);
 }
 .toolbar input{
     width: 100%;
     height: 45px;
-    padding: 0;
+    padding: 4px;
 
-    border: 3px solid #ffd166;
-    border-radius: 12px;
+    border: 2px solid #ff9f43;
+    border-radius: 10px;
     cursor: pointer;
     background: white;
+    box-sizing: border-box;
 }
 .canvas-box{
     position: relative;
 
     width: 600px;
     height: 600px;
-    background: #fff;
-    border: 3px solid #74c0fc;
-    border-radius: 16px;
+    background: #fffdf7;
+    border: 1px solid #ddd;
+    border-radius: 12px;
     overflow: hidden;
     margin: 0;
     flex-shrink: 0;
-    box-shadow: 0 7px 20px
-    rgba(0,0,0,0.12);
+    box-shadow: 0 6px 22px
+    rgba(99,102,241,0.12);
 }
 canvas {
     position: absolute;
@@ -96,6 +101,7 @@ canvas {
 
     width: 600px;
     height: 600px;
+    touch-action: none;
 }
 #artCanvas{
    z-index: 2;
@@ -104,7 +110,16 @@ canvas {
     z-index: 1;
 }
 .toolbar button.active{
-    background: #ff6b6b;
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);
     color: #fff;
-    border-color: #333;
+    border-color: #1976d2;
+    box-shadow: 0 3px 8px rgba(25,118,210,0.3);
+    transform: translateY(-1px);
+}
+.toolbar input::-webkit-color-swatch-wrapper{
+    padding: 0;
+}
+.toolbar input::-webkit-color-swatch{
+    border: none;
+    border-radius: 6px;
 }
