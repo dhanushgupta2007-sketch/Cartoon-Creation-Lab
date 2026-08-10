@@ -7,9 +7,9 @@ const ctx = canvas.getContext("2d");
 characterCtx.fillStyle = "#ffd0a6";
 characterCtx.strokeStyle = "#333";
 function drawCharacter(){
-characterCtx.LineWidth = 5;
+characterCtx.lineWidth = 5;
 characterCtx.beginPath();
-characterCtx.ellipse(300,190,88,105,0,0,Math.PI *2);
+characterCtx.ellipse(300,190,88,105,0,0,Math.PI*2);
 characterCtx.fill();
 characterCtx.stroke();
 
@@ -88,26 +88,25 @@ characterCtx.stroke();
 
 characterCtx.fillStyle = "#333";
 characterCtx.beginPath();
-characterCtx.arc(300,115,88,0,Math.PI);
-characterCtx.fill();
-characterCtx.stroke();
-
-characterCtx.beginPath();
-characterCtx.moveTo(225,145);
-characterCtx.quadraticCurveTo(230,105,300,102);
-characterCtx.quadraticCurveTo(370,105,375,145);
-characterCtx.lineTo(360,135);
-characterCtx.lineTo(345,150);
-characterCtx.lineTo(330,135);
-characterCtx.lineTo(315,150);
-characterCtx.lineTo(300,135);
-characterCtx.lineTo(285,150);
-characterCtx.lineTo(270,135);
-characterCtx.lineTo(255,150);
-characterCtx.lineTo(240,135)
+characterCtx.moveTo(220,135);
+characterCtx.quadraticCurveTo(220,90,250,82);
+characterCtx.quadraticCurveTo(275,70,300,82);
+characterCtx.quadraticCurveTo(325,70,350,82);
+characterCtx.quadraticCurveTo(375,90,380,125);
+characterCtx.lineTo(365,118);
+characterCtx.lineTo(350,128);
+characterCtx.lineTo(335,118);
+characterCtx.lineTo(320,128);
+characterCtx.lineTo(305,118);
+characterCtx.lineTo(290,128);
+characterCtx.lineTo(275,118);
+characterCtx.lineTo(260,128);
+characterCtx.lineTo(245,118);
+characterCtx.lineTo(235,128);
 characterCtx.closePath();
 characterCtx.fill();
 characterCtx.stroke();
+
 }
 drawCharacter();
 let drawing = false;
@@ -142,21 +141,38 @@ canvas.addEventListener("mousemove",function(event) {
     });
     const pencilBtn = document.getElementById("pencilBtn");
     const brushBtn = document.getElementById("brushBtn");
-
+    let currentTool = "pencil";
     pencilBtn.addEventListener("click",function(){
-        ctx.globalCompositionOperation = "source-over";
-        ctx.lineWidth = 4;
+        currentTool = "pencil";
+        ctx.globalCompositeOperation = "source-over";
+
+        pencilBtn.classList.add("active");
+        brushBtn.classList.remove("active");
+        eraserBtn.classList.remove("active");
     });
     brushBtn.addEventListener("click",function(){
+        currentTool = "brush";
         ctx.globalCompositeOperation = "source-over";
-        ctx.lineWidth = 14;
+
+        brushBtn.classList.add("active");
+        pencilBtn.classList.remove("active");
+        eraserBtn.classList.remove("active");
     });
     const eraserBtn = document.getElementById("eraserBtn");
     eraserBtn.addEventListener("click",function(){
+        currentTool = "eraser";
         ctx.globalCompositeOperation = "destination-out";
-        ctx.lineWidth = 25;
+
+        eraserBtn.classList.add("active");
+        pencilBtn.classList.remove("active");
+        brushBtn.classList.remove("active");
+    });
+    const brushSize = document.getElementById("brushSize");
+    brushSize.addEventListener("input",function(){
+        ctx.lineWidth = Number(brushSize.value);
     });
     let undostack = [];
+    let redostack = [];
     const undoBtn = document.getElementById("undoBtn");
     const clearBtn = document.getElementById("clearBtn");
     const redoBtn = document.getElementById("redoBtn");
@@ -193,7 +209,7 @@ canvas.addEventListener("mousemove",function(event) {
         finalCanvas.width = characterCanvas.width;
         finalCanvas.height = characterCanvas.height;
 
-        const finalCtx = finalCtx = finalCanvas.getContext("2d");
+        const finalCtx = finalCanvas.getContext("2d");
         finalCtx.drawImage(characterCanvas, 0,0);
         finalCtx.drawImage(canvas,0,0);
         const image = finalCanvas.toDataURL("image/png");
