@@ -1,47 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-    <!--Cartoon Creation Lab-->
-<title>Cartoon Creation Lab</title>
-<link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cartoon Creation Lab</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <div class="app">
 
-    <header>
-        <h1>Cartoon Creation Lab </h1>
-        <p>Create and color your own cartoon person</p>
-    </header>
-     
-    <div class="studio">
+        <!-- HEADER -->
+        <header>
 
-        <div class="toolbar">
+            <h1 id="title">
+                Cartoon Creation Lab
+            </h1>
 
-            <button id = "pencilBtn">Pencil</button>
-            <button id="brushBtn"> Brush</button>
-            <label for="brushSize">Line Size</label>
-            <input type="range" id="brushSize" min="1" max="30" value="4">
-            <button id="eraserBtn"> Eraser</button>
-            <input type="color" id="colorPicker" value="#ff6b6b">
-            <button id="undoBtn"> Undo</button>
-            <button id="clearBtn"> Clear</button>
-            <button id="redoBtn"> Redo</button>
-            <button id="saveBtn">Save </button>
+            <p id="subtitle">
+                Create and color your own cartoon person
+            </p>
 
-        </div>
+        </header>
 
-        <div class="canvas-box">
-            <canvas id="characterCanvas" width="600" height="600"></canvas>
-            <canvas id="artCanvas" width = "600" height="600"></canvas>
+
+        <!-- STUDIO -->
+        <div class="studio">
+
+
+            <!-- TOOLBAR -->
+            <div class="toolbar">
+
+                <button id="pencilBtn">
+                    Pencil
+                </button>
+
+                <button id="brushBtn">
+                    Brush
+                </button>
+
+
+                <label for="brushSize">
+                    Line Size
+                </label>
+
+                <input
+                    type="range"
+                    id="brushSize"
+                    min="1"
+                    max="30"
+                    value="4"
+                >
+
+
+                <button id="eraserBtn">
+                    Eraser
+                </button>
+
+
+                <input
+                    type="color"
+                    id="colorPicker"
+                    value="#ff6b6b"
+                >
+
+
+                <button id="undoBtn">
+                    Undo
+                </button>
+
+                <button id="clearBtn">
+                    Clear
+                </button>
+
+                <button id="redoBtn">
+                    Redo
+                </button>
+
+                <button id="saveBtn">
+                    Save
+                </button>
+
+
+                <!-- DARK MODE -->
+                <button id="darkBtn">
+                    Dark
+                </button>
+
+            </div>
+
+
+            <!-- CANVAS -->
+            <div class="canvas-box">
+
+                <!-- CARTOON -->
+                <canvas
+                    id="characterCanvas"
+                    width="600"
+                    height="600">
+                </canvas>
+
+
+                <!-- USER DRAWING -->
+                <canvas
+                    id="artCanvas"
+                    width="600"
+                    height="600">
+                </canvas>
+
+
+                <!-- BAT LAYER -->
+                <div id="batLayer"></div>
+
+            </div>
+
         </div>
 
     </div>
 
-</div>
 
-<script src="script.js" defer></script>
+    <script src="script.js" defer></script>
+
 </body>
+
 </html>
