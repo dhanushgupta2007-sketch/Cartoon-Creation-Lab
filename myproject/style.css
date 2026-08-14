@@ -1,0 +1,908 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8f7ff,
+            #fff4f8,
+            #fff9e6
+        );
+
+    color: #222;
+
+    transition:
+        background 0.5s ease,
+        color 0.5s ease;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+    width: 94%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+header {
+    padding: 25px 0 18px;
+}
+
+
+h1 {
+    margin: 0;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6366f1,
+            #ec4899,
+            #f59e0b
+        );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+header p {
+    margin-top: 8px;
+
+    font-size: 18px;
+
+    color: #666;
+
+    transition: color 0.5s ease;
+}
+
+
+/* =========================================
+   STUDIO
+========================================= */
+
+.studio {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 25px;
+}
+
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.toolbar {
+    width: 140px;
+
+    padding: 12px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #f1f7ff
+        );
+
+    border: 1px solid #d6e4f0;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    box-shadow:
+        0 6px 18px
+        rgba(0, 0, 0, 0.08);
+
+    transition:
+        background 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+
+/* =========================================
+   TOOLBAR BUTTONS
+========================================= */
+
+.toolbar button {
+    padding: 11px;
+
+    border: 2px solid #e2e6ff;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #3d4160;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+/* =========================================
+   BUTTON HOVER
+========================================= */
+
+.toolbar button:hover {
+    background: #f0f4ff;
+
+    border-color: #9eb7ff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   ACTIVE TOOL
+========================================= */
+
+.toolbar button.active {
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+    color: white;
+
+    border-color: #1976d2;
+
+    box-shadow:
+        0 3px 8px
+        rgba(25, 118, 210, 0.4);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.toolbar input {
+    width: 100%;
+
+    height: 45px;
+
+    padding: 4px;
+
+    border: 2px solid #ff9f43;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background: white;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   RANGE SLIDER
+========================================= */
+
+.toolbar input[type="range"] {
+    height: auto;
+
+    padding: 0;
+
+    border: none;
+
+    accent-color: #1976d2;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   COLOR PICKER
+========================================= */
+
+.toolbar input[type="color"] {
+    padding: 4px;
+
+    cursor: pointer;
+}
+
+.toolbar input::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.toolbar input::-webkit-color-swatch {
+    border: none;
+
+    border-radius: 6px;
+}
+
+
+/* =========================================
+   CANVAS BOX
+========================================= */
+
+.canvas-box {
+    position: relative;
+
+    width: 600px;
+    height: 600px;
+
+    background: #fffdf7;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    margin: 0;
+
+    flex-shrink: 0;
+
+    box-shadow:
+        0 6px 22px
+        rgba(99, 102, 241, 0.12);
+
+    transition:
+        background 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+
+/* =========================================
+   CANVASES
+========================================= */
+
+canvas {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 600px;
+    height: 600px;
+
+    touch-action: none;
+}
+
+
+/* =========================================
+   CHARACTER CANVAS
+========================================= */
+
+#characterCanvas {
+    z-index: 1;
+}
+
+
+/* =========================================
+   ART CANVAS
+========================================= */
+
+#artCanvas {
+    z-index: 2;
+
+    background: transparent;
+}
+
+
+/* =========================================
+   BAT LAYER
+========================================= */
+
+#batLayer {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 10;
+
+    pointer-events: none;
+
+    display: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   BAT
+========================================= */
+
+.bat {
+    position: absolute;
+
+   width: 40px;
+   height: 36px;
+   background-image: url("Bat_sprite.png");
+   background-repeat: no-repeat;
+   background-size: 80px 72px;
+   image-rendering: pixelated;
+   user-select: none;
+   pointer-events: none;
+   opacity: 0.9;
+   animation-name: flyBat,batFlap;
+   animation-timing-function: linear,
+                            steps(1);
+   animation-iteration-count: infinite,
+   infinite;
+   animation-duration: 7s,
+   0.6s;
+}
+
+
+/* =========================================
+   BAT ANIMATION
+========================================= */
+
+@keyframes flyBat {
+
+    0% {
+        transform:
+            translateX(-100px)
+            translateY(0);
+    }
+
+    25% {
+        transform:
+            translateX(150px)
+            translateY(-35px);
+    }
+
+    50% {
+        transform:
+            translateX(350px)
+            translateY(30px);
+    }
+
+    75% {
+        transform:
+            translateX(550px)
+            translateY(-20px);
+    }
+
+    100% {
+        transform:
+            translateX(750px)
+            translateY(10px);
+    }
+}
+@keyframes batFlap{
+    0%{
+        background-position: 0 0;
+    }
+    25%{
+        background-position: -40px 0;
+    }
+    50%{
+        background-position: 0 -36px;
+    }
+    75%{
+        background-position: -40px -36px
+    }
+    100%{
+        background-position: 0 0;
+    }
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #1b2030 0%,
+            #090c14 55%,
+            #020307 100%
+        );
+
+    color: white;
+}
+
+
+/* =========================================
+   DARK MODE HEADER
+========================================= */
+
+body.dark-mode h1 {
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c83ff,
+            #c44cff,
+            #ff4f91
+        );
+
+    background-clip: text;
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+body.dark-mode header p {
+    color: #bfc4d3;
+}
+
+
+/* =========================================
+   DARK MODE TOOLBAR
+========================================= */
+
+body.dark-mode .toolbar {
+
+    background:
+        linear-gradient(
+            180deg,
+            #171b27,
+            #0e111a
+        );
+
+    border-color: #343a4a;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.45);
+}
+
+
+/* =========================================
+   DARK MODE BUTTONS
+========================================= */
+
+body.dark-mode .toolbar button {
+
+    background: #1c2130;
+
+    color: #e5e7ef;
+
+    border-color: #3b4254;
+}
+
+
+body.dark-mode .toolbar button:hover {
+
+    background: #292f40;
+
+    border-color: #68728c;
+}
+
+
+/* =========================================
+   DARK MODE ACTIVE TOOL
+========================================= */
+
+body.dark-mode .toolbar button.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #6366f1
+        );
+
+    color: white;
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 3px 10px
+        rgba(37, 99, 235, 0.5);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   DARK MODE INPUTS
+========================================= */
+
+body.dark-mode .toolbar input[type="color"] {
+    background: #1c2130;
+
+    border-color: #4b5563;
+}
+
+
+/* =========================================
+   DARK MODE CANVAS
+========================================= */
+
+body.dark-mode .canvas-box {
+
+    background: #05070c;
+
+    border-color: #303746;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, 0.55);
+}
+
+
+/* =========================================
+   HIDE CARTOON IN DARK MODE
+========================================= */
+
+body.dark-mode #characterCanvas {
+    display: none;
+}
+
+
+/* =========================================
+   EMPTY ART CANVAS IN DARK MODE
+========================================= */
+
+body.dark-mode #artCanvas {
+
+    display: block;
+
+    background: transparent;
+}
+
+
+/* =========================================
+   SHOW BATS IN DARK MODE
+========================================= */
+
+body.dark-mode #batLayer {
+    display: block;
+}
+
+
+/* =========================================
+   DARK BUTTON
+========================================= */
+
+#darkBtn {
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   DARK BUTTON ACTIVE
+========================================= */
+
+#darkBtn.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #6366f1
+        );
+
+    color: white;
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 3px 10px
+        rgba(37, 99, 235, 0.5);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   DARK BUTTON HOVER WHEN ACTIVE
+========================================= */
+
+#darkBtn.active:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #4f46e5
+        );
+
+    border-color: #93c5fd;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .studio {
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+
+    .toolbar {
+
+        width: 90%;
+
+        flex-direction: row;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+
+    .toolbar button {
+
+        min-width: 90px;
+    }
+
+
+    .canvas-box {
+
+        width: 90vw;
+        height: 90vw;
+
+        max-width: 600px;
+        max-height: 600px;
+    }
+
+
+    canvas {
+
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+/* =========================================
+   SMALL SCREENS
+========================================= */
+
+@media (max-width: 500px) {
+
+    header {
+        padding-top: 15px;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+
+    header p {
+        font-size: 15px;
+    }
+
+
+    .toolbar {
+        width: 100%;
+    }
+
+
+    .toolbar button {
+        min-width: 80px;
+
+        padding: 9px 7px;
+
+        font-size: 13px;
+    }
+}
+body.dark-mode::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    background: radial-gradient(
+        circle at center,transparent 35%,
+        rgba(0,0,0 , 0.45) 75%,
+        rgba(0,0,0,0.85) 100%
+    );
+    animation: darkVignette 4s ease-in-out infinite alternate;
+}
+@keyframes darkVignette{
+    from{
+        opacity:0.7;
+    }
+    to{
+        opacity: 1;
+    }
+}
+body.dark-mode .canvas-box{
+    background: 
+    radial-gradient(
+        circle at center,
+        #101522 0%,
+        #070a11 55%,
+        #020307 100%
+    );
+    border-color: #293143;
+    box-shadow: 
+    0 0 20px rgba(30, 40, 70, 0.5),
+    inset 0 0 80px rgba(0, 0, 0, 0.8);
+    animation: canvasBreathing 5s ease-in-out infinite;
+}
+@keyframes canvasBreathing{
+    0%,100%{
+        box-shadow: 0 0 20px rgba(30,40,70,0.5),
+        inset 0 0 80px rgba(0,0,0,0.8);
+    }
+50%{
+    box-shadow:
+    0 0 35px rgba(60,40,90,0.7),
+    inset 0 0 100px rgba(0,0,0,0.9);
+    }
+}
+body.dark-mode .canvas-box::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    background: 
+    radial-gradient(
+        circle at center,
+        transparent 55%,
+        rgba(90,0,15,0.12) 80%,
+        rgba(120,0,20,0.25) 100%
+    );
+    animation: redPulse 6s ease-in-out infinite;
+}
+@keyframes redPulse{
+    0%,100%{
+        opacity: 0.3;
+    }
+    50%{
+        opacity: 0.8;
+    }
+}
+body.dark-mode .bat{
+    filter:
+    drop-shadow(0 0  5px rgba(255,255,255,0.15));
+    opacity: 0.75;
+    animation-timing-function: linear;
+}
+body.dark-mode .canvas-box::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 7;
+    opacity: 0.25;
+    background-image: radial-gradient(
+        circle,
+        rgba(255,255,255,0.5) 1px,
+        transparent 1px
+    );
+    background-size: 90px 90px;
+    animation: particlesMove 20s linear infinite;
+}
+@keyframes particlesMove{
+    from{
+        background-position: 
+        0 0;
+    }
+    to{
+        background-position: 
+        90px 180px;
+    }
+}
+#darkBtn.active{
+    animation: darkButtonPulse 2.5s ease-in-out infinite;
+}
+@keyframes darkButtonPulse{
+    0% ,100% {
+        box-shadow: 
+        0 3px 10px  rgba(37,99,235,0.5);
+    }
+    50% {
+        box-shadow: 
+        0 0 20px rgba(90,40,180,0.8);
+    }
+}
+body.dark-mode.flicker{
+    animation: screenFlicker 0.15 steps(2) 3;
+}
+@keyframes screenFlicker{
+    0% {
+        filter: brightness(1);
+    }
+    50%{
+        filter: brightness(0.25);
+    }
+    100%{
+        filter: brightness(1);
+    }
+}
+#referenceContainer{
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    width: 180px;
+    padding: 8px;
+    background: rgba(5, 7, 12, 0.92);
+    border: 1px solid #4b5265;
+    border-radius: 10px;
+    z-index: 20;
+    display: none;
+    box-shadow: 
+    0 0 15px rgba(0,0,0,0.7);
+}
+body.dark-mode #referenceContainer{
+    display: block;
+}
+#referenceTitle{
+    margin-bottom: 6px;
+    color: #aeb4c5;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+#referenceCanvas{
+    position: static;
+    display: block;
+    width: 160px;
+    height: 160px;
+    background: #11151f;
+    border: 1px solid #343b4c;
+    border-radius: 6px;
+}
