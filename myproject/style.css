@@ -6,6 +6,14 @@
     box-sizing: border-box;
 }
 
+html,
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
 
 /* =========================================
    BODY
@@ -38,12 +46,14 @@ body {
 ========================================= */
 
 .app {
-    width: 94%;
-    max-width: 1100px;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
 
-    margin: 0 auto;
-
+    margin: 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -93,12 +103,14 @@ header p {
 ========================================= */
 
 .studio {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 100px);
     display: flex;
-
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-
     gap: 25px;
+   overflow: hidden;
 }
 
 
@@ -107,35 +119,25 @@ header p {
 ========================================= */
 
 .toolbar {
-    width: 140px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
 
-    padding: 12px;
+    height: 100vh;
 
-    background:
-        linear-gradient(
-            180deg,
-            #ffffff,
-            #f1f7ff
-        );
-
-    border: 1px solid #d6e4f0;
-
-    border-radius: 16px;
-
+    padding: 80px 20px 20px;
+    box-sizing: border-box;
     display: flex;
 
     flex-direction: column;
 
-    gap: 10px;
+    gap: 12px;
 
-    box-shadow:
-        0 6px 18px
-        rgba(0, 0, 0, 0.08);
+    z-index: 1000;
 
-    transition:
-        background 0.5s ease,
-        border-color 0.5s ease,
-        box-shadow 0.5s ease;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
 }
 
 
@@ -274,11 +276,12 @@ header p {
 .canvas-box {
     position: relative;
 
-    width: 600px;
-    height: 600px;
+    width: min(90vw,calc(100vh - 130px));
+    height: min(90vw,calc(100vh - 130px));
+    max-width: none;
+    max-height: none;
 
     background: #fffdf7;
-
     border: 1px solid #ddd;
 
     border-radius: 12px;
@@ -289,14 +292,8 @@ header p {
 
     flex-shrink: 0;
 
-    box-shadow:
-        0 6px 22px
-        rgba(99, 102, 241, 0.12);
-
-    transition:
-        background 0.5s ease,
-        border-color 0.5s ease,
-        box-shadow 0.5s ease;
+    box-shadow: 0 6px 22px
+    rgba(99, 102, 241, 0.12);
 }
 
 
@@ -310,8 +307,8 @@ canvas {
     top: 0;
     left: 0;
 
-    width: 600px;
-    height: 600px;
+    width: 100%;
+    height: 100%;
 
     touch-action: none;
 }
@@ -367,79 +364,75 @@ canvas {
 .bat {
     position: absolute;
 
-   width: 40px;
-   height: 36px;
-   background-image: url("Bat_sprite.png");
-   background-repeat: no-repeat;
-   background-size: 80px 72px;
-   image-rendering: pixelated;
-   user-select: none;
-   pointer-events: none;
-   opacity: 0.9;
-   animation-name: flyBat,batFlap;
-   animation-timing-function: linear,
-                            steps(1);
-   animation-iteration-count: infinite,
-   infinite;
-   animation-duration: 7s,
-   0.6s;
-}
+    width: 32px;
+    height: 24px;
 
+    background-image: url("Bat_Sprite_Sheet.png");
+
+    background-repeat: no-repeat;
+
+    background-size: 160px 144px;
+
+    image-rendering: pixelated;
+
+    pointer-events: none;
+    user-select: none;
+
+    opacity: 0.9;
+    
+    animation:
+        batFly 8s linear infinite,
+        batFlap 1s steps(1) infinite;
+}
 
 /* =========================================
    BAT ANIMATION
 ========================================= */
+@keyframes batFlap {
 
-@keyframes flyBat {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -160px 0;
+    }
+
+}
+
+
+/* =========================================
+   BAT FLYING
+========================================= */
+
+@keyframes batFly {
 
     0% {
-        transform:
-            translateX(-100px)
-            translateY(0);
+        left: -50px;
+        top: 10%;
     }
 
     25% {
-        transform:
-            translateX(150px)
-            translateY(-35px);
+        left: 25%;
+        top: 25%;
     }
 
     50% {
-        transform:
-            translateX(350px)
-            translateY(30px);
+        left: 50%;
+        top: 10%;
     }
 
     75% {
-        transform:
-            translateX(550px)
-            translateY(-20px);
+        left: 75%;
+        top: 30%;
     }
 
     100% {
-        transform:
-            translateX(750px)
-            translateY(10px);
+        left: 105%;
+        top: 15%;
     }
-}
-@keyframes batFlap{
-    0%{
-        background-position: 0 0;
-    }
-    25%{
-        background-position: -40px 0;
-    }
-    50%{
-        background-position: 0 -36px;
-    }
-    75%{
-        background-position: -40px -36px
-    }
-    100%{
-        background-position: 0 0;
-    }
-}
 
+}
 
 /* =========================================
    DARK MODE
@@ -503,7 +496,7 @@ body.dark-mode .toolbar {
 
     box-shadow:
         0 8px 25px
-        rgba(0, 0, 0, 0.45);
+        rgba(0, 0, 0, 0.6);
 }
 
 
@@ -666,34 +659,33 @@ body.dark-mode #batLayer {
    RESPONSIVE
 ========================================= */
 
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+
+    padding: 80px 20px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    z-index: 1000;
+
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    background: rgba(255,255,255,0.95);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.2);
+}
+
+.toolbar.open {
+    transform: translateX(0);
+}
+
 @media (max-width: 850px) {
-
-    .studio {
-
-        flex-direction: column;
-
-        align-items: center;
-    }
-
-
-    .toolbar {
-
-        width: 90%;
-
-        flex-direction: row;
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-    }
-
-
-    .toolbar button {
-
-        min-width: 90px;
-    }
-
-
     .canvas-box {
 
         width: 90vw;
@@ -702,7 +694,6 @@ body.dark-mode #batLayer {
         max-width: 600px;
         max-height: 600px;
     }
-
 
     canvas {
 
@@ -716,7 +707,7 @@ body.dark-mode #batLayer {
    SMALL SCREENS
 ========================================= */
 
-@media (max-width: 500px) {
+@media (max-width: 450px) {
 
     header {
         padding-top: 15px;
@@ -906,3 +897,36 @@ body.dark-mode #referenceContainer{
     border: 1px solid #343b4c;
     border-radius: 6px;
 }
+#similarityContainer{
+    margin-top: 8px;
+    padding: 6px;
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+#similarityValue{
+    color: #ffffff;
+    font-size: 15px;
+    margin-left: 4px;
+}
+#menuBtn{
+    position: fixed;
+    top:20px;
+    left: 20px;
+    z-index: 2000;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 12px;
+    font-size: 24px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0, 0, 0.25);
+    transition: 0.3s ease;
+}
+#menuBtn:hover{
+    transform: scale(1.05);
+}
+

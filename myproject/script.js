@@ -16,6 +16,7 @@ const ctx =
 
 const referenceCanvas = document.getElementById("referenceCanvas");
 const referenceCtx = referenceCanvas.getContext("2d");
+const similarityValue = document.getElementById("similarityValue");
 
 
 /* =========================================
@@ -595,6 +596,9 @@ canvas.addEventListener(
         drawing = false;
 
         ctx.beginPath();
+        if(darkMode){
+            calculatesimilarity();
+        }
     }
 );
 
@@ -932,6 +936,8 @@ darkBtn.addEventListener(
             /* Create bats */
 
             createBats();
+            createReferenceImage();
+            similarityValue.textContent = "0%";
         }
 
 
@@ -999,11 +1005,6 @@ function createBats() {
 
 
         bat.className = "bat";
-
-
-        /* Bat emoji */
-
-        bat.style.backgroundImage = 'url("Bat_sprite")';
 
 
         /* Random vertical position */
@@ -1092,3 +1093,91 @@ function createReferenceImage(){
     ctx.closePath();
     ctx.fill();
 }
+
+function calculatesimilarity(){
+    const referenceData = referenceCtx.getImageData(
+        0,
+        0,
+        referenceCanvas.width,
+        referenceCanvas.height
+    ).data;
+
+    const smallCanvas = document.createElement("canvas");
+    smallCanvas.width = 160;
+    smallCanvas.height = 160;
+    const smallCtx = smallCanvas.getContext("2d");
+    smallCtx.drawImage(
+        canvas,
+        0,
+        0,
+        160,
+        160
+    );
+    const drawingData = smallCtx.getImageData(
+        0,
+        0,
+        160,
+        160
+    ).data;
+    let referencePixels = 0;
+    let drawingPixels = 0;
+    let matchingPixels = 0;
+    for(
+        let i = 0;
+        i < referenceData.length;
+        i+=4
+    )
+    {
+        const refR = referenceData[i];
+        const refG = referenceData[i+1];
+        const refB = referenceData[i+2];
+        const drawR = drawingData[i];
+        const drawG = drawingData[i+1];
+        const drawB = drawingData[i+2];
+        const drawA = drawingData[i+3];
+
+        const referenceIsShape = (
+            refR+
+            refG+
+            refB
+        ) > 80;
+
+        const drawingExists = drawA>30;
+        if(referenceIsShape){
+            referencePixels++;
+        }
+        if(drawingExists){
+            drawingPixels++;
+        }
+        if(
+            referenceIsShape && drawingExists
+        ){
+            matchingPixels++;
+        }
+    }
+    if(referencePixels===0 || drawingPixels===0){
+        similarityValue.textContent = "0%";
+        return 0;
+    }
+    const similarity = (
+        2*matchingPixels
+    )/
+    (
+        referencePixels+drawingPixels
+    );
+    const percentage = Math.round(
+        similarity*100
+    );
+    const finalPercentage = Math.min(
+        100,
+        percentage
+    );
+    similarityValue.textContent = finalPercentage+"%";
+    return finalPercentage;
+
+}
+const menuBtn = document.getElementById("menuBtn");
+const toolbar = document.querySelector(".toolbar");
+menuBtn.addEventListener("click",function(){
+    toolbar.classList.toggle("open");
+});
