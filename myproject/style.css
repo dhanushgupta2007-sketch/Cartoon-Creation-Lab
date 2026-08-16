@@ -105,11 +105,10 @@ header p {
 .studio {
     position: relative;
     width: 100%;
-    height: calc(100vh - 100px);
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
+    align-items: stretch;
+    justify-content: stretch;
    overflow: hidden;
 }
 
@@ -192,8 +191,8 @@ header p {
     background:
         linear-gradient(
             135deg,
-            #6366f1,
-            #8b5cf6
+            #0800fe,
+            #3300ff
         );
 
     color: white;
@@ -276,24 +275,12 @@ header p {
 .canvas-box {
     position: relative;
 
-    width: min(90vw,calc(100vh - 130px));
-    height: min(90vw,calc(100vh - 130px));
-    max-width: none;
-    max-height: none;
-
+    width: 100%;
+    height: 100%;
     background: #fffdf7;
-    border: 1px solid #ddd;
-
-    border-radius: 12px;
-
     overflow: hidden;
-
     margin: 0;
-
     flex-shrink: 0;
-
-    box-shadow: 0 6px 22px
-    rgba(99, 102, 241, 0.12);
 }
 
 
@@ -303,13 +290,10 @@ header p {
 
 canvas {
     position: absolute;
-
     top: 0;
     left: 0;
-
     width: 100%;
     height: 100%;
-
     touch-action: none;
 }
 
@@ -364,17 +348,9 @@ canvas {
 .bat {
     position: absolute;
 
-    width: 32px;
-    height: 24px;
-
+    width: 34px;
+    height: 20px;
     background-image: url("Bat_Sprite_Sheet.png");
-
-    background-repeat: no-repeat;
-
-    background-size: 160px 144px;
-
-    image-rendering: pixelated;
-
     pointer-events: none;
     user-select: none;
 
@@ -382,12 +358,24 @@ canvas {
     
     animation:
         batFly 8s linear infinite,
-        batFlap 1s steps(1) infinite;
+        batFlap 0.35s ease-in-out infinite alternate;
 }
 
-/* =========================================
-   BAT ANIMATION
-========================================= */
+    .bat {
+    position: absolute;
+
+    width: 34px;
+    height: 20px;
+    background-image: url("Bat_Sprite_Sheet.png");
+    pointer-events: none;
+    user-select: none;
+
+    opacity: 0.9;
+    
+    animation:
+        batFly 8s linear infinite,
+        batFlap 0.35s ease-in-out infinite alternate;
+}
 @keyframes batFlap {
 
     from {
@@ -397,60 +385,48 @@ canvas {
     to {
         background-position: -160px 0;
     }
-
 }
-
-
-/* =========================================
-   BAT FLYING
-========================================= */
-
-@keyframes batFly {
-
-    0% {
-        left: -50px;
-        top: 10%;
-    }
-
-    25% {
-        left: 25%;
-        top: 25%;
-    }
-
-    50% {
-        left: 50%;
-        top: 10%;
-    }
-
-    75% {
-        left: 75%;
-        top: 30%;
-    }
-
-    100% {
-        left: 105%;
-        top: 15%;
-    }
-
-}
-
-/* =========================================
-   DARK MODE
-========================================= */
 
 body.dark-mode {
 
     background:
         radial-gradient(
             circle at center,
-            #1b2030 0%,
-            #090c14 55%,
-            #020307 100%
+            #101522 0%,
+            #08060c 55%,
+            #010001 100%
         );
-
-    color: white;
+    color: #d8d2e0;
 }
+@keyframes batFly {
 
+    0% {
+        left: -50px;
+        transform: translateY(0);
+    }
+
+    25% {
+        left: 25%;
+        transform: translateY(-20px);
+    }
+
+    50% {
+        left: 50%;
+        
+        transform: translateY(-15px);
+    }
+
+    75% {
+        left: 75%;
+        transform: translateY(-15px);
+    }
+
+    100% {
+        left: 105%;
+        transform: translateY(0);
+    }
+
+}
 
 /* =========================================
    DARK MODE HEADER
@@ -461,9 +437,9 @@ body.dark-mode h1 {
     background:
         linear-gradient(
             90deg,
-            #7c83ff,
-            #c44cff,
-            #ff4f91
+            #8b0000,
+            #4a1a4a,
+            #b8860b
         );
 
     background-clip: text;
@@ -564,13 +540,17 @@ body.dark-mode .toolbar input[type="color"] {
 
 body.dark-mode .canvas-box {
 
-    background: #05070c;
-
-    border-color: #303746;
-
-    box-shadow:
-        0 10px 35px
-        rgba(0, 0, 0, 0.55);
+    background: 
+    radial-gradient(
+        circle at center,
+        #101522 0%,
+        #070a11 55%,
+        #020307 100%
+    );
+    border-color: #293143;
+    box-shadow: 0 0 20px rgba(30, 40, 70, 0.5),
+    inset 0 0 80px rgba(0, 0, 0, 0.8);
+    animation: canvasBreathing 5s ease-in-out infinite;
 }
 
 
@@ -686,20 +666,7 @@ body.dark-mode #batLayer {
 }
 
 @media (max-width: 850px) {
-    .canvas-box {
 
-        width: 90vw;
-        height: 90vw;
-
-        max-width: 600px;
-        max-height: 600px;
-    }
-
-    canvas {
-
-        width: 100%;
-        height: 100%;
-    }
 }
 
 
@@ -771,6 +738,7 @@ body.dark-mode .canvas-box{
     0 0 20px rgba(30, 40, 70, 0.5),
     inset 0 0 80px rgba(0, 0, 0, 0.8);
     animation: canvasBreathing 5s ease-in-out infinite;
+    filter: brightness(0.8) contrast(1.15);
 }
 @keyframes canvasBreathing{
     0%,100%{
@@ -929,4 +897,6 @@ body.dark-mode #referenceContainer{
 #menuBtn:hover{
     transform: scale(1.05);
 }
-
+#characterCanvas{
+    display: none !important;
+}

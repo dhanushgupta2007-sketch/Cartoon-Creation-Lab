@@ -18,6 +18,17 @@ const referenceCanvas = document.getElementById("referenceCanvas");
 const referenceCtx = referenceCanvas.getContext("2d");
 const similarityValue = document.getElementById("similarityValue");
 
+function resizeCanvases(){
+    const rect = canvas.getBoundingClientRect();
+
+    characterCanvas.width = rect.width;
+    characterCanvas.height = rect.height;
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    characterCtx.scale(rect.width / 600, rect.height / 600);
+}
+resizeCanvases();
+
 
 /* =========================================
    CANVAS SETTINGS
@@ -402,6 +413,16 @@ const brushSize =
 const colorPicker =
     document.getElementById("colorPicker");
 
+function getCanvasPos(event){
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return{
+        x: (event.clientX - rect.left) * scaleX,
+        y: (event.clientY - rect.top) * scaleY
+    };
+}
+
 
 /* =========================================
    ACTIVE TOOL
@@ -437,7 +458,7 @@ pencilBtn.addEventListener(
         ctx.globalCompositeOperation =
             "source-over";
 
-        ctx.lineWidth = 4;
+        ctx.lineWidth = Number(brushSize.value);
 
         ctx.strokeStyle =
             colorPicker.value;
@@ -499,7 +520,7 @@ brushSize.addEventListener(
     "input",
     function () {
 
-        if (currentTool === "brush") {
+        if (currentTool !=="eraser") {
 
             ctx.lineWidth =
                 Number(brushSize.value);
@@ -555,9 +576,10 @@ canvas.addEventListener(
 
         ctx.beginPath();
 
+        const startPos = getCanvasPos(event);
         ctx.moveTo(
-            event.offsetX,
-            event.offsetY
+            startPos.x,
+            startPos.y
         );
     }
 );
@@ -574,10 +596,10 @@ canvas.addEventListener(
         if (!drawing) {
             return;
         }
-
+        const movePos = getCanvasPos(event);
         ctx.lineTo(
-            event.offsetX,
-            event.offsetY
+           movePos.x,
+           movePos.y
         );
 
         ctx.stroke();
@@ -829,9 +851,19 @@ const batLayer =
     document.getElementById("batLayer");
 
 
-let darkMode = false;
+let darkMode = true;
+let matchTriggered = false;
 
 let savedDrawing = null;
+
+if(darkMode){
+    characterCanvas.style.display = "none";
+    document.body.classList.add("dark-mode");
+    darkBtn.classList.add("active");
+    createBats();
+    createReferenceImage();
+    similarityValue.textContent="0%";
+}
 
 
 /* =========================================
@@ -1010,7 +1042,7 @@ function createBats() {
         /* Random vertical position */
 
         bat.style.top =
-            Math.random() * 550 + "px";
+            Math.random() * 90 + "%";
 
 
         /* Random starting position */
@@ -1173,8 +1205,25 @@ function calculatesimilarity(){
         percentage
     );
     similarityValue.textContent = finalPercentage+"%";
+    if(finalPercentage>=55 && !matchTriggered){
+        matchTriggered = true;
+        triggerMatchEffect();
+    }else if(finalPercentage<55){
+        matchTriggered = false;
+    }
     return finalPercentage;
 
+}
+function triggerMatchEffect(){
+    document.body.classList.add("flicker");
+    canvas.style.filter = "drop-shadow(0 0 30px red) drop-shadow(0 0 60px red)";
+    similarityValue.textContent = "MATCH!!";
+    similarityValue.style.color = "#ff3b3b"
+    setTimeout(() => {
+        document.body.classList.remove("flicker");
+        canvas.style.filter = "none";
+        similarityValue.style.color = "#ffffff";
+    }, 700);
 }
 const menuBtn = document.getElementById("menuBtn");
 const toolbar = document.querySelector(".toolbar");

@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <button id="menuBtn">☰</button>
 
     <div class="app">
@@ -18,20 +19,15 @@
         <!-- HEADER -->
         <header>
 
-            <h1 id="title">
-                
-            </h1>
+            <h1 id="title"></h1>
 
-            <p id="subtitle">
-                
-            </p>
+            <p id="subtitle"></p>
 
         </header>
 
 
         <!-- STUDIO -->
         <div class="studio">
-
 
             <!-- TOOLBAR -->
             <div class="toolbar">
@@ -43,7 +39,6 @@
                 <button id="brushBtn">
                     Brush
                 </button>
-
 
                 <label for="brushSize">
                     Line Size
@@ -57,18 +52,15 @@
                     value="4"
                 >
 
-
                 <button id="eraserBtn">
                     Eraser
                 </button>
-
 
                 <input
                     type="color"
                     id="colorPicker"
                     value="#ff6b6b"
                 >
-
 
                 <button id="undoBtn">
                     Undo
@@ -86,7 +78,6 @@
                     Save
                 </button>
 
-
                 <!-- DARK MODE -->
                 <button id="darkBtn">
                     Dark
@@ -95,41 +86,51 @@
             </div>
 
 
-            <!-- CANVAS -->
+            <!-- CANVAS AREA -->
             <div class="canvas-box">
 
-                <!-- CARTOON -->
+                <!-- CARTOON LAYER -->
                 <canvas
                     id="characterCanvas"
                     width="600"
                     height="600">
                 </canvas>
 
-
-                <!-- USER DRAWING -->
+                <!-- USER DRAWING LAYER -->
                 <canvas
                     id="artCanvas"
                     width="600"
                     height="600">
                 </canvas>
 
-
                 <!-- BAT LAYER -->
                 <div id="batLayer"></div>
-                <div id="referenceTitle">REFERENCE</div>
-                <canvas 
-                id="referenceCanvas"
-                width="160"
-                height="160">
-            </canvas>
-                <div id="similarityValue">0%</div>
-            </div>
+
+                <!-- REFERENCE -->
+                <div id="referenceContainer">
+                    <div id="referenceTitle">REFERENCE</div>
+
+                    <canvas
+                        id="referenceCanvas"
+                        width="160"
+                        height="160">
+                    </canvas>
+
+                    <div id="similarityContainer">
+                        <span id="similarityValue">0%</span>
+                    </div>
+                </div>
 
             </div>
+            <!-- END canvas-box -->
 
         </div>
+        <!-- END studio -->
+
+    </div>
+    <!-- END app -->
+
     <script src="script.js" defer></script>
 
 </body>
-
 </html>
