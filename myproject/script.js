@@ -1142,6 +1142,10 @@ function calculatesimilarity(){
         canvas,
         0,
         0,
+        canvas.width,
+        canvas.height,
+        0,
+        0,
         160,
         160
     );
@@ -1205,7 +1209,7 @@ function calculatesimilarity(){
         percentage
     );
     similarityValue.textContent = finalPercentage+"%";
-    if(finalPercentage>=55 && !matchTriggered){
+    if(finalPercentage>=50){
         matchTriggered = true;
         triggerMatchEffect();
     }else if(finalPercentage<55){
@@ -1215,15 +1219,9 @@ function calculatesimilarity(){
 
 }
 function triggerMatchEffect(){
-    document.body.classList.add("flicker");
-    canvas.style.filter = "drop-shadow(0 0 30px red) drop-shadow(0 0 60px red)";
+    document.body.classList.add("spooky");
     similarityValue.textContent = "MATCH!!";
     similarityValue.style.color = "#ff3b3b"
-    setTimeout(() => {
-        document.body.classList.remove("flicker");
-        canvas.style.filter = "none";
-        similarityValue.style.color = "#ffffff";
-    }, 700);
 }
 const menuBtn = document.getElementById("menuBtn");
 const toolbar = document.querySelector(".toolbar");

@@ -412,7 +412,7 @@ body.dark-mode {
 
     50% {
         left: 50%;
-        
+
         transform: translateY(-15px);
     }
 
@@ -464,15 +464,15 @@ body.dark-mode .toolbar {
     background:
         linear-gradient(
             180deg,
-            #171b27,
-            #0e111a
+            #1a0d12,
+            #0a0508
         );
 
-    border-color: #343a4a;
+    border-color: #4a1a2a;
 
     box-shadow:
-        0 8px 25px
-        rgba(0, 0, 0, 0.6);
+        0 8px 25px rgba(0, 0, 0, 0.7),
+        inset -1px 0 0 rgba(255, 0, 60, 0.08);
 }
 
 
@@ -482,19 +482,20 @@ body.dark-mode .toolbar {
 
 body.dark-mode .toolbar button {
 
-    background: #1c2130;
+    background: #16101a;
 
-    color: #e5e7ef;
+    color: #d8c8d0;
 
-    border-color: #3b4254;
+    border-color: #3a1f2c;
 }
 
 
 body.dark-mode .toolbar button:hover {
 
-    background: #292f40;
+    background: #241018;
 
-    border-color: #68728c;
+    border-color: rgba(255, 0, 60, 0.5);
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.25);
 }
 
 
@@ -507,17 +508,17 @@ body.dark-mode .toolbar button.active {
     background:
         linear-gradient(
             135deg,
-            #2563eb,
-            #6366f1
+            #7a0d1f,
+            #4a1a4a
         );
 
     color: white;
 
-    border-color: #60a5fa;
+    border-color: rgba(255, 0, 60, 0.7);
 
     box-shadow:
-        0 3px 10px
-        rgba(37, 99, 235, 0.5);
+        0 3px 10px rgba(255, 0, 60, 0.5),
+        rgba(120, 0, 255, 0.25);
 
     transform: translateY(-1px);
 }
@@ -528,12 +529,14 @@ body.dark-mode .toolbar button.active {
 ========================================= */
 
 body.dark-mode .toolbar input[type="color"] {
-    background: #1c2130;
+    background: #16101a;
 
-    border-color: #4b5563;
+    border-color: #5a2438;
 }
 
-
+body.dark-mode .toolbar input[type="range"]::-webkit-slider-thumb {
+    box-shadow: 0 0 8px rgba(255, 0, 60, 0.7);
+}
 /* =========================================
    DARK MODE CANVAS
 ========================================= */
@@ -602,17 +605,17 @@ body.dark-mode #batLayer {
     background:
         linear-gradient(
             135deg,
-            #2563eb,
-            #6366f1
+            #7a0d1f,
+            #4a1a4a
         );
 
     color: white;
 
-    border-color: #60a5fa;
+    border-color: rgba(255, 0, 60, 0.7);
 
     box-shadow:
         0 3px 10px
-        rgba(37, 99, 235, 0.5);
+        rgba(255, 0, 60, 0.5);
 
     transform: translateY(-1px);
 }
@@ -821,6 +824,9 @@ body.dark-mode .canvas-box::before{
 body.dark-mode.flicker{
     animation: screenFlicker 0.15 steps(2) 3;
 }
+body.dark-mode .toolbar input[type="range"] {
+    accent-color: #ff003c;
+}
 @keyframes screenFlicker{
     0% {
         filter: brightness(1);
@@ -897,6 +903,56 @@ body.dark-mode #referenceContainer{
 #menuBtn:hover{
     transform: scale(1.05);
 }
+body.dark-mode #menuBtn{
+    background: linear-gradient(135deg, #7a0d1f, #4a1a4a);
+    box-shadow: 0 0 12px rgba(255, 0, 60, 0.5);
+}
+body.dark-mode #menuBtn:hover{
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.8);
+}
 #characterCanvas{
     display: none !important;
+}
+
+body.dark-mode.spooky .canvas-box{
+    animation: 
+    spookyPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(255, 0, 60, 0.5),
+                0 0 80px rgba(120, 0, 30, 0.25);
+}
+body.dark-mode.spooky .bat{
+    filter:
+        drop-shadow(0 0 8px rgba(255, 0, 50, 0.8))
+        drop-shadow(0 0 15px rgba(120, 0, 255, 0.6));
+        opacity: 1;
+}
+
+@keyframes spookyPulse{
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50%{
+        filter: brightness(1.35);
+    }
+}
+body.dark-mode, body.dark-mode * {
+    cursor: crosshair;
+}
+
+body.dark-mode h1 {
+    text-shadow: 0 0 8px rgba(255,0,60,0.6), 0 0 20px rgba(120,0,255,0.3);
+    animation: titleFlicker 3s infinite;
+}
+@keyframes titleFlicker {
+    0%, 94%, 100%{opacity: 1; }
+    95% { opacity: 0.4; }
+    97% { opacity: 0.8; }
+}
+
+body.dark-mode #referenceCanvas {
+    animation: watchPulse 3s ease-in-out infinite;
+}
+@keyframes watchPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255, 0, 60, 0);}
+    50% { box-shadow: 0 0 15px rgba(255,0,60,0.5);}
 }
