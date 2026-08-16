@@ -1212,7 +1212,8 @@ function calculatesimilarity(){
     if(finalPercentage>=50){
         matchTriggered = true;
         triggerMatchEffect();
-    }else if(finalPercentage<55){
+        triggerJumpscare();
+    }else if(finalPercentage < 55){
         matchTriggered = false;
     }
     return finalPercentage;
@@ -1227,4 +1228,80 @@ const menuBtn = document.getElementById("menuBtn");
 const toolbar = document.querySelector(".toolbar");
 menuBtn.addEventListener("click",function(){
     toolbar.classList.toggle("open");
+});
+
+const jumpscareOverlay = document.getElementById("jumpscareOverlay");
+const jumpscareVideo = document.getElementById("jumpscareVideo");
+let jumpscareTriggered = false;
+
+function checkCanvasFill(){
+
+    if(jumpscareTriggered) return;
+
+    const smallCanvas = document.createElement("canvas");
+
+    smallCanvas.width = 160;
+    smallCanvas.height = 160;
+
+    const smallCtx = smallCanvas.getContext("2d");
+
+    smallCtx.drawImage(
+        canvas,
+        0,
+        0,
+        canvas.width,
+        canvas.height,
+        0,
+        0,
+        160,
+        160
+    );
+
+    const imageData = smallCtx.getImageData(
+        0,
+        0,
+        160,
+        160
+    ).data;
+
+    let drawnPixels = 0;
+
+    for(let i = 3; i < imageData.length; i += 4){
+
+        if(imageData[i] > 30){
+            drawnPixels++;
+        }
+
+    }
+
+    const totalPixels = 160 * 160;
+
+    const fillPercentage =
+        (drawnPixels / totalPixels) * 100;
+
+    console.log(
+        "Canvas fill:",
+        fillPercentage.toFixed(1) + "%"
+    );
+
+    if(fillPercentage >= 50){
+
+        triggerJumpscare();
+
+    }
+}
+function triggerJumpscare() {
+    if(jumpscareTriggered) return;
+    jumpscareTriggered = true;
+
+    jumpscareOverlay.style.display = "flex";
+    jumpscareVideo.currentTime = 0;
+
+    jumpscareVideo.play().catch(error => {
+        console.log("jumpscare video couldn't autoplay:",error);
+    });
+}
+
+jumpscareVideo.addEventListener("ended", function(){
+    jumpscareOverlay.style.display = "none";
 });
