@@ -1,7 +1,3 @@
-/* =========================================
-   RESET
-========================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -15,9 +11,7 @@ body{
 }
 
 
-/* =========================================
-   BODY
-========================================= */
+
 
 body {
     margin: 0;
@@ -41,9 +35,6 @@ body {
 }
 
 
-/* =========================================
-   APP
-========================================= */
 
 .app {
     width: 100vw;
@@ -56,10 +47,6 @@ body {
     flex-direction: column;
 }
 
-
-/* =========================================
-   HEADER
-========================================= */
 
 header {
     padding: 25px 0 18px;
@@ -97,11 +84,6 @@ header p {
     transition: color 0.5s ease;
 }
 
-
-/* =========================================
-   STUDIO
-========================================= */
-
 .studio {
     position: relative;
     width: 100%;
@@ -112,10 +94,6 @@ header p {
    overflow: hidden;
 }
 
-
-/* =========================================
-   TOOLBAR
-========================================= */
 
 .toolbar {
     position: fixed;
@@ -139,10 +117,6 @@ header p {
     transition: transform 0.3s ease;
 }
 
-
-/* =========================================
-   TOOLBAR BUTTONS
-========================================= */
 
 .toolbar button {
     padding: 11px;
@@ -170,10 +144,6 @@ header p {
 }
 
 
-/* =========================================
-   BUTTON HOVER
-========================================= */
-
 .toolbar button:hover {
     background: #f0f4ff;
 
@@ -182,10 +152,6 @@ header p {
     transform: translateY(-2px);
 }
 
-
-/* =========================================
-   ACTIVE TOOL
-========================================= */
 
 .toolbar button.active {
     background:
@@ -207,10 +173,6 @@ header p {
 }
 
 
-/* =========================================
-   INPUTS
-========================================= */
-
 .toolbar input {
     width: 100%;
 
@@ -230,9 +192,6 @@ header p {
 }
 
 
-/* =========================================
-   RANGE SLIDER
-========================================= */
 
 .toolbar input[type="range"] {
     height: auto;
@@ -246,10 +205,6 @@ header p {
     cursor: pointer;
 }
 
-
-/* =========================================
-   COLOR PICKER
-========================================= */
 
 .toolbar input[type="color"] {
     padding: 4px;
@@ -268,10 +223,6 @@ header p {
 }
 
 
-/* =========================================
-   CANVAS BOX
-========================================= */
-
 .canvas-box {
     position: relative;
 
@@ -284,10 +235,6 @@ header p {
 }
 
 
-/* =========================================
-   CANVASES
-========================================= */
-
 canvas {
     position: absolute;
     top: 0;
@@ -298,18 +245,13 @@ canvas {
 }
 
 
-/* =========================================
-   CHARACTER CANVAS
-========================================= */
+
 
 #characterCanvas {
     z-index: 1;
 }
 
 
-/* =========================================
-   ART CANVAS
-========================================= */
 
 #artCanvas {
     z-index: 2;
@@ -318,9 +260,6 @@ canvas {
 }
 
 
-/* =========================================
-   BAT LAYER
-========================================= */
 
 #batLayer {
     position: absolute;
@@ -340,10 +279,6 @@ canvas {
     overflow: hidden;
 }
 
-
-/* =========================================
-   BAT
-========================================= */
 
 .bat {
     position: absolute;
@@ -428,9 +363,6 @@ body.dark-mode {
 
 }
 
-/* =========================================
-   DARK MODE HEADER
-========================================= */
 
 body.dark-mode h1 {
 
@@ -455,9 +387,6 @@ body.dark-mode header p {
 }
 
 
-/* =========================================
-   DARK MODE TOOLBAR
-========================================= */
 
 body.dark-mode .toolbar {
 
@@ -476,9 +405,6 @@ body.dark-mode .toolbar {
 }
 
 
-/* =========================================
-   DARK MODE BUTTONS
-========================================= */
 
 body.dark-mode .toolbar button {
 
@@ -499,9 +425,6 @@ body.dark-mode .toolbar button:hover {
 }
 
 
-/* =========================================
-   DARK MODE ACTIVE TOOL
-========================================= */
 
 body.dark-mode .toolbar button.active {
 
@@ -524,9 +447,6 @@ body.dark-mode .toolbar button.active {
 }
 
 
-/* =========================================
-   DARK MODE INPUTS
-========================================= */
 
 body.dark-mode .toolbar input[type="color"] {
     background: #16101a;
@@ -537,9 +457,6 @@ body.dark-mode .toolbar input[type="color"] {
 body.dark-mode .toolbar input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 8px rgba(255, 0, 60, 0.7);
 }
-/* =========================================
-   DARK MODE CANVAS
-========================================= */
 
 body.dark-mode .canvas-box {
 
@@ -557,18 +474,11 @@ body.dark-mode .canvas-box {
 }
 
 
-/* =========================================
-   HIDE CARTOON IN DARK MODE
-========================================= */
-
 body.dark-mode #characterCanvas {
     display: none;
 }
 
 
-/* =========================================
-   EMPTY ART CANVAS IN DARK MODE
-========================================= */
 
 body.dark-mode #artCanvas {
 
@@ -578,27 +488,16 @@ body.dark-mode #artCanvas {
 }
 
 
-/* =========================================
-   SHOW BATS IN DARK MODE
-========================================= */
-
 body.dark-mode #batLayer {
     display: block;
 }
 
 
-/* =========================================
-   DARK BUTTON
-========================================= */
 
 #darkBtn {
     margin-top: 5px;
 }
 
-
-/* =========================================
-   DARK BUTTON ACTIVE
-========================================= */
 
 #darkBtn.active {
 
@@ -621,10 +520,6 @@ body.dark-mode #batLayer {
 }
 
 
-/* =========================================
-   DARK BUTTON HOVER WHEN ACTIVE
-========================================= */
-
 #darkBtn.active:hover {
 
     background:
@@ -637,10 +532,6 @@ body.dark-mode #batLayer {
     border-color: #93c5fd;
 }
 
-
-/* =========================================
-   RESPONSIVE
-========================================= */
 
 .toolbar {
     position: fixed;
@@ -672,10 +563,6 @@ body.dark-mode #batLayer {
 
 }
 
-
-/* =========================================
-   SMALL SCREENS
-========================================= */
 
 @media (max-width: 450px) {
 
@@ -1002,4 +889,13 @@ body.dark-mode #referenceCanvas {
     100%{
         transform: translate(5px, 8px);
     }
+}
+#subtitle {
+    font-family: 'poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #f0a6c8;
+    text-shadow: 0 0 10px rgba(240, 166, 200, 0.35);
+    animation: subtitleFlicker 4s ease-in-out infinite;
+    
 }

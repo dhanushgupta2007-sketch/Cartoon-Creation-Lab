@@ -1,6 +1,3 @@
-/* =========================================
-   CANVAS SETUP
-========================================= */
 
 const characterCanvas =
     document.getElementById("characterCanvas");
@@ -29,20 +26,11 @@ function resizeCanvases(){
 }
 resizeCanvases();
 
-
-/* =========================================
-   CANVAS SETTINGS
-========================================= */
-
 ctx.lineCap = "round";
 ctx.lineJoin = "round";
 ctx.strokeStyle = "#ff6b6b";
 ctx.lineWidth = 4;
 
-
-/* =========================================
-   DRAW CARTOON
-========================================= */
 
 function drawCharacter() {
 
@@ -56,10 +44,6 @@ function drawCharacter() {
     characterCtx.lineWidth = 5;
     characterCtx.strokeStyle = "#333";
 
-
-    /* -------------------------
-       HEAD
-    ------------------------- */
 
     characterCtx.fillStyle = "#ffd0a6";
 
@@ -79,9 +63,6 @@ function drawCharacter() {
     characterCtx.stroke();
 
 
-    /* -------------------------
-       BODY
-    ------------------------- */
 
     characterCtx.fillStyle = "#39b5e8";
 
@@ -111,10 +92,6 @@ function drawCharacter() {
     characterCtx.stroke();
 
 
-    /* -------------------------
-       LEFT ARM
-    ------------------------- */
-
     characterCtx.beginPath();
 
     characterCtx.moveTo(225, 315);
@@ -143,9 +120,7 @@ function drawCharacter() {
     characterCtx.stroke();
 
 
-    /* -------------------------
-       RIGHT ARM
-    ------------------------- */
+
 
     characterCtx.beginPath();
 
@@ -174,10 +149,6 @@ function drawCharacter() {
     characterCtx.fill();
     characterCtx.stroke();
 
-
-    /* -------------------------
-       LEFT LEG
-    ------------------------- */
 
     characterCtx.beginPath();
 
@@ -214,11 +185,6 @@ function drawCharacter() {
 
     characterCtx.fill();
     characterCtx.stroke();
-
-
-    /* -------------------------
-       RIGHT LEG
-    ------------------------- */
 
     characterCtx.beginPath();
 
@@ -264,14 +230,8 @@ function drawCharacter() {
     characterCtx.stroke();
 
 
-    /* -------------------------
-       FACE
-    ------------------------- */
-
     characterCtx.fillStyle = "#333";
 
-
-    /* Left eye */
 
     characterCtx.beginPath();
 
@@ -288,8 +248,6 @@ function drawCharacter() {
     characterCtx.fill();
 
 
-    /* Right eye */
-
     characterCtx.beginPath();
 
     characterCtx.ellipse(
@@ -305,8 +263,6 @@ function drawCharacter() {
     characterCtx.fill();
 
 
-    /* Smile */
-
     characterCtx.beginPath();
 
     characterCtx.moveTo(275, 220);
@@ -320,10 +276,6 @@ function drawCharacter() {
 
     characterCtx.stroke();
 
-
-    /* -------------------------
-       HAIR
-    ------------------------- */
 
     characterCtx.fillStyle = "#333";
 
@@ -382,10 +334,6 @@ function drawCharacter() {
 drawCharacter();
 
 
-/* =========================================
-   DRAWING VARIABLES
-========================================= */
-
 let drawing = false;
 
 let currentTool = "pencil";
@@ -393,10 +341,6 @@ let currentTool = "pencil";
 let undoStack = [];
 let redoStack = [];
 
-
-/* =========================================
-   TOOL BUTTONS
-========================================= */
 
 const pencilBtn =
     document.getElementById("pencilBtn");
@@ -424,10 +368,6 @@ function getCanvasPos(event){
 }
 
 
-/* =========================================
-   ACTIVE TOOL
-========================================= */
-
 function setActiveTool(button) {
 
     pencilBtn.classList.remove("active");
@@ -440,14 +380,11 @@ function setActiveTool(button) {
 }
 
 
-/* Pencil selected initially */
+
 
 setActiveTool(pencilBtn);
 
 
-/* =========================================
-   PENCIL
-========================================= */
 
 pencilBtn.addEventListener(
     "click",
@@ -466,12 +403,6 @@ pencilBtn.addEventListener(
         setActiveTool(pencilBtn);
     }
 );
-
-
-/* =========================================
-   BRUSH
-========================================= */
-
 brushBtn.addEventListener(
     "click",
     function () {
@@ -492,10 +423,6 @@ brushBtn.addEventListener(
 );
 
 
-/* =========================================
-   ERASER
-========================================= */
-
 eraserBtn.addEventListener(
     "click",
     function () {
@@ -512,9 +439,7 @@ eraserBtn.addEventListener(
 );
 
 
-/* =========================================
-   BRUSH SIZE
-========================================= */
+
 
 brushSize.addEventListener(
     "input",
@@ -529,9 +454,6 @@ brushSize.addEventListener(
 );
 
 
-/* =========================================
-   COLOR PICKER
-========================================= */
 
 colorPicker.addEventListener(
     "input",
@@ -546,9 +468,7 @@ colorPicker.addEventListener(
 );
 
 
-/* =========================================
-   DRAWING - START
-========================================= */
+
 
 canvas.addEventListener(
     "pointerdown",
@@ -556,8 +476,6 @@ canvas.addEventListener(
 
         drawing = true;
 
-
-        /* Save current state for Undo */
 
         undoStack.push(
             ctx.getImageData(
@@ -569,7 +487,6 @@ canvas.addEventListener(
         );
 
 
-        /* New drawing means redo is cleared */
 
         redoStack = [];
 
@@ -585,9 +502,6 @@ canvas.addEventListener(
 );
 
 
-/* =========================================
-   DRAWING - MOVE
-========================================= */
 
 canvas.addEventListener(
     "pointermove",
@@ -605,11 +519,6 @@ canvas.addEventListener(
         ctx.stroke();
     }
 );
-
-
-/* =========================================
-   DRAWING - END
-========================================= */
 
 canvas.addEventListener(
     "pointerup",
@@ -635,11 +544,6 @@ canvas.addEventListener(
     }
 );
 
-
-/* =========================================
-   UNDO
-========================================= */
-
 const undoBtn =
     document.getElementById("undoBtn");
 
@@ -652,8 +556,6 @@ undoBtn.addEventListener(
             return;
         }
 
-
-        /* Save current state for Redo */
 
         redoStack.push(
             ctx.getImageData(
@@ -678,10 +580,6 @@ undoBtn.addEventListener(
 );
 
 
-/* =========================================
-   CLEAR
-========================================= */
-
 const clearBtn =
     document.getElementById("clearBtn");
 
@@ -703,11 +601,6 @@ clearBtn.addEventListener(
     }
 );
 
-
-/* =========================================
-   REDO
-========================================= */
-
 const redoBtn =
     document.getElementById("redoBtn");
 
@@ -721,7 +614,7 @@ redoBtn.addEventListener(
         }
 
 
-        /* Save current state for Undo */
+   
 
         undoStack.push(
             ctx.getImageData(
@@ -746,10 +639,6 @@ redoBtn.addEventListener(
 );
 
 
-/* =========================================
-   SAVE
-========================================= */
-
 const saveBtn =
     document.getElementById("saveBtn");
 
@@ -772,11 +661,6 @@ saveBtn.addEventListener(
         const finalCtx =
             finalCanvas.getContext("2d");
 
-
-        /* -------------------------
-           DARK MODE SAVE
-        ------------------------- */
-
         if (darkMode) {
 
             finalCtx.fillStyle = "#05070c";
@@ -796,10 +680,6 @@ saveBtn.addEventListener(
 
         }
 
-
-        /* -------------------------
-           NORMAL MODE SAVE
-        ------------------------- */
 
         else {
 
@@ -840,9 +720,6 @@ saveBtn.addEventListener(
 );
 
 
-/* =========================================
-   DARK MODE
-========================================= */
 
 const darkBtn =
     document.getElementById("darkBtn");
@@ -866,10 +743,6 @@ if(darkMode){
 }
 
 
-/* =========================================
-   SAVE DRAWING BEFORE DARK MODE
-========================================= */
-
 function saveCurrentDrawing() {
 
     savedDrawing =
@@ -882,9 +755,6 @@ function saveCurrentDrawing() {
 }
 
 
-/* =========================================
-   RESTORE DRAWING
-========================================= */
 
 function restoreDrawing() {
 
@@ -898,10 +768,6 @@ function restoreDrawing() {
     }
 }
 
-
-/* =========================================
-   CLEAR DRAWING
-========================================= */
 
 function clearDrawing() {
 
@@ -918,10 +784,6 @@ function clearDrawing() {
 }
 
 
-/* =========================================
-   DARK MODE BUTTON
-========================================= */
-
 darkBtn.addEventListener(
     "click",
     function () {
@@ -929,43 +791,31 @@ darkBtn.addEventListener(
         darkMode = !darkMode;
 
 
-        /* =================================
-           ENTER DARK MODE
-        ================================= */
-
         if (darkMode) {
 
-            /* Save existing drawing */
 
             saveCurrentDrawing();
 
 
-            /* Empty the canvas */
 
             clearDrawing();
 
-
-            /* Hide cartoon */
 
             characterCanvas.style.display =
                 "none";
 
 
-            /* Activate dark theme */
 
             document.body.classList.add(
                 "dark-mode"
             );
 
 
-            /* Highlight Dark button */
-
             darkBtn.classList.add(
                 "active"
             );
 
 
-            /* Create bats */
 
             createBats();
             createReferenceImage();
@@ -973,38 +823,27 @@ darkBtn.addEventListener(
         }
 
 
-        /* =================================
-           EXIT DARK MODE
-        ================================= */
 
         else {
 
-            /* Remove dark theme */
 
             document.body.classList.remove(
                 "dark-mode"
             );
 
 
-            /* Show cartoon */
-
             characterCanvas.style.display =
                 "block";
 
 
-            /* Restore previous drawing */
-
             restoreDrawing();
 
 
-            /* Remove button highlight */
 
             darkBtn.classList.remove(
                 "active"
             );
 
-
-            /* Remove bats */
 
             removeBats();
         }
@@ -1012,13 +851,7 @@ darkBtn.addEventListener(
 );
 
 
-/* =========================================
-   CREATE BATS
-========================================= */
-
 function createBats() {
-
-    /* Remove any existing bats */
 
     removeBats();
 
@@ -1044,24 +877,16 @@ function createBats() {
         bat.style.top =
             Math.random() * 90 + "%";
 
-
-        /* Random starting position */
-
         bat.style.left =
             -100 -
             Math.random() * 500 +
             "px";
 
 
-        /* Random flying speed */
-
         bat.style.animationDuration =
             5 +
             Math.random() * 8 +
             "s";
-
-
-        /* Random animation starting point */
 
         bat.style.animationDelay =
             -Math.random() * 8 +
@@ -1072,10 +897,6 @@ function createBats() {
     }
 }
 
-
-/* =========================================
-   REMOVE BATS
-========================================= */
 
 function removeBats() {
 
@@ -1096,7 +917,6 @@ function createReferenceImage(){
     ctx.arc(80,78,48,0,Math.PI*2);
     ctx.fill();
     
-    /* Right eye */
     ctx.beginPath();
     ctx.arc(98, 68, 9, 0,Math.PI*2);
     ctx.fill();
