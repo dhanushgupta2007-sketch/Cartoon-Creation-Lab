@@ -484,10 +484,7 @@ canvas.addEventListener(
 
         ctx.beginPath();
 
-        ctx.moveTo(
-            event.offsetX,
-            event.offsetY
-        );
+        ctx.moveTo(event.offsetX,event.offsetY);
     }
 );
 
@@ -502,11 +499,7 @@ canvas.addEventListener(
             return;
         }
 
-        ctx.lineTo(
-            event.offsetX,
-            event.offsetY
-        );
-
+        ctx.lineTo(event.offsetX, event.offsetY);
         ctx.stroke();
     }
 );
@@ -749,9 +742,7 @@ function saveCurrentDrawing() {
 }
 
 
-/* =========================================
-   RESTORE DRAWING
-========================================= */
+
 
 function restoreDrawing() {
 
