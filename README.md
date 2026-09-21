@@ -25,16 +25,6 @@ Built with
 - JavaScript
 - Canvas API
 
-Run it
-
-Clone the repo and open `myproject/index.html` in your browser.
-
-```bash
-git clone https://github.com/dhanushgupta2007-sketch/Cartoon-Creation-Lab.git
-```
-
-Or open it with VS Code + Live Server.
-
 About
 
 I made this for ZoneOut. I wanted to start with something that looks like a normal drawing app and slowly turn it into something creepy.
